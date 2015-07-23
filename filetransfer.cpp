@@ -14,13 +14,33 @@
 #include <QtSerialPort>
 #include <QFile>
 
+/**
+ * \brief g_serial global variable representing the serial port currently
+ *                 opened this is needed for _inbyte and _outbyte, functions
+ *                 required by the xmodem library
+ */
+QSerialPort *g_serial = 0;
+
+/**
+ * \brief global variable representing the total size of file transferred
+ */
+qint64 _total_bytes = 0;
+
+/**
+ * \brief global variable used to represent the amount of bytes already
+ * transferred
+ */
+qint64 _byte_sent = 0;
+
 FileTransfer::FileTransfer(QObject *parent, QSerialPort *serial, const QString &filename) :
     QObject(parent),
     filename(filename),
     serial(serial),
     thread(0)
 {
+    g_serial = serial;
     total_size = 0;
+    _byte_sent = 0;
     qRegisterMetaType<TransferError>("TransferError");
 }
 
@@ -31,7 +51,7 @@ bool FileTransfer::startTransfer()
     if (file.open(QIODevice::ReadOnly))
     {
         buffer = file.readAll();
-        total_size = file.size();
+        _total_bytes = total_size = file.size();
         file.close();
         if (total_size > 0)
         {

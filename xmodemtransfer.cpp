@@ -14,24 +14,13 @@
 #include "xmodemtransfer.h"
 #include "xmodem.h"
 
-/**
- * \brief g_serial global variable representing the serial port currently
- *                 opened this is needed for _inbyte and _outbyte, functions
- *                 required by the xmodem library
- */
-QSerialPort *g_serial = 0;
-XModemTransfer *_g_transfer = 0;
+extern QSerialPort *g_serial;
 
-/**
- * \brief global variable representing the total size of file transferred
- */
-qint64 _total_bytes = 0;
+extern qint64 _total_bytes;
 
-/**
- * \brief global variable used to represent the amount of bytes already
- * transferred
- */
-qint64 _byte_sent = 0;
+extern qint64 _byte_sent;
+
+static XModemTransfer *_g_transfer = 0;
 
 /**
  * \brief global variable representing the last transfer percentage emitted

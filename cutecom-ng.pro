@@ -24,7 +24,9 @@ SOURCES += main.cpp\
     xmodemtransfer.cpp \
     filetransfer.cpp \
     libs/crc16.cpp \
-    libs/xmodem.cpp
+    libs/xmodem.cpp \
+    libs/fymodem.cpp \
+    ymodemtransfer.cpp
 
 HEADERS  += mainwindow.h \
     connectdialog.h \
@@ -36,7 +38,9 @@ HEADERS  += mainwindow.h \
     xmodemtransfer.h \
     filetransfer.h \
     libs/crc16.h \
-    libs/xmodem.h
+    libs/xmodem.h \
+    libs/fymodem.h \
+    ymodemtransfer.h
 
 FORMS    += mainwindow.ui \
     connectdialog.ui \
